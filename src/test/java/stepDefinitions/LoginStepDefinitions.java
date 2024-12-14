@@ -38,8 +38,7 @@ public class LoginStepDefinitions {
     }
 
     @Then("I should see the products page")
-    public void i_should_see_the_products_page() throws InterruptedException {
-        Thread.sleep ( 2000 );
+    public void i_should_see_the_products_page() {
         Assert.assertTrue (loginPage.isProductsPageDisplayed ());
     }
 

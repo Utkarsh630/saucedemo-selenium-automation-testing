@@ -5,7 +5,8 @@ import io.cucumber.testng.CucumberOptions;
 import org.testng.annotations.DataProvider;
 
 @CucumberOptions(tags = "", features = {"src/test/resources/features/"}, glue = {"stepDefinitions","hooks"},
-plugin = {"pretty", "html:reports/cucumber-report/cucumber.html"}, monochrome = true)
+plugin = {"pretty", "html:reports/cucumber-report/cucumber.html","json:reports/cucumber-report/cucumber.json"
+,"com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}, monochrome = true)
 
 public class TestRunner extends AbstractTestNGCucumberTests {
 //    Parallel run of tests
