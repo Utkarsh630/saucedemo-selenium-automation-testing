@@ -7,7 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 
 public class LoginPage {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
     public LoginPage(WebDriver driver){
         this.driver = driver;
@@ -15,16 +15,16 @@ public class LoginPage {
     }
 
     @FindBy(xpath = "//input[@id='user-name']")
-    private WebElement userName_field;
+    WebElement userName_field;
 
     @FindBy(xpath = "//input[@id='password']")
-    private WebElement password_field;
+    WebElement password_field;
 
     @FindBy(xpath = "//input[@id='login-button']")
-    private WebElement login_button;
+    WebElement login_button;
 
     @FindBy(xpath = "//div[@class='error-message-container error']/h3")
-    private WebElement error_message;
+    WebElement error_message;
 
     public void enterUsername(String message){
         userName_field.sendKeys (message);
@@ -37,6 +37,7 @@ public class LoginPage {
     }
 
     public boolean isProductsPageDisplayed(){
+
         return driver.getCurrentUrl ().contains("inventory");
     }
 

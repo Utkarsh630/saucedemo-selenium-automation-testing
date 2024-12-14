@@ -1,21 +1,28 @@
 package stepDefinitions;
 
+import config.ConfigLoader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
 import pages.LoginPage;
-import utils.WebDriverManager;
+import utils.TestContext;
 
 public class LoginStepDefinitions {
-    WebDriver driver = WebDriverManager.getDriver();
-    LoginPage loginPage = new LoginPage (driver);
+    TestContext testContext;
+    LoginPage loginPage;
+    public LoginStepDefinitions(TestContext testContext){
+        this.testContext=testContext;
+        this.loginPage=testContext.pageObjectManager.getLoginPage ();
+    }
 
     @Given ("I am on the Sauce Demo login page")
     public void i_am_on_the_sauce_demo_login_page() {
-        driver.get ("https://www.saucedemo.com/");
+        this.testContext.verifyCurrentURI (ConfigLoader.getProperty ("baseURI"),"Login Page");
+
+//        Assert.assertEquals (testContext.driver.getCurrentUrl (), ConfigLoader.getProperty ("baseURI") );
     }
+
 
     @When("I enter valid username {string}")
     public void i_enter_valid_username(String string) {
@@ -33,7 +40,8 @@ public class LoginStepDefinitions {
     }
 
     @Then("I should see the products page")
-    public void i_should_see_the_products_page() {
+    public void i_should_see_the_products_page() throws InterruptedException {
+        Thread.sleep ( 2000 );
         Assert.assertTrue (loginPage.isProductsPageDisplayed ());
     }
 
