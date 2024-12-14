@@ -19,8 +19,6 @@ public class LoginStepDefinitions {
     @Given ("I am on the Sauce Demo login page")
     public void i_am_on_the_sauce_demo_login_page() {
         this.testContext.verifyCurrentURI (ConfigLoader.getProperty ("baseURI"),"Login Page");
-
-//        Assert.assertEquals (testContext.driver.getCurrentUrl (), ConfigLoader.getProperty ("baseURI") );
     }
 
 
