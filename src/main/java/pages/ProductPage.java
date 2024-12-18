@@ -3,6 +3,7 @@ package pages;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -38,22 +39,22 @@ public class ProductPage {
 
     public List <String> getInventoryItemsName(){
         logger.info("Collecting Item names:{}",driver.getCurrentUrl ());
-        List<String> inventoryList = new ArrayList <> ();
-        for (WebElement itemName:inventoryItemsName){
-            inventoryList.add (itemName.getText ());
-            logger.info ( "Item name: {}" , itemName.getText ( ) );
-
-        }
-        return inventoryList;
+        return getElementTextList ( inventoryItemsName, "Item name" );
     }
     public List< String> getInventoryItemsPrice(){
         logger.info("Collecting Item prices:");
-        List<String> inventoryList = new ArrayList <> ();
-        for (WebElement itemPrice:inventoryItemsPrice){
-            inventoryList.add (itemPrice.getText ());
-            logger.info ( "Item price: {}" , itemPrice.getText ( ) );
+
+        return getElementTextList ( inventoryItemsPrice, "Item price" );
+    }
+
+    private List<String> getElementTextList(List<WebElement> elementList, String logMessagePrefix){
+        List<String> elementTextList = new ArrayList <> ();
+        for (WebElement element:elementList){
+            String text = element.getText ();
+            elementTextList.add (text);
+            logger.info("{}: {}", logMessagePrefix, text);
         }
-        return inventoryList;
+        return elementTextList;
     }
 
     private int findItemIndexByName(String itemName){
@@ -70,7 +71,7 @@ public class ProductPage {
         logger.debug("Attempting to add product '{}' to cart", itemName);
         int itemIndex = findItemIndexByName ( itemName );
         if(itemIndex==-1){
-            logger.warn ("{} not present in the invetory list",itemName);
+            logger.warn ("{} not present in the inventory list",itemName);
             throw new RuntimeException ("Item not in the inventory");
         }
         WebElement addToCartButton = inventoryItemsAddToCart.get ( itemIndex );
@@ -87,16 +88,7 @@ public class ProductPage {
         return cartButton.getText ();
     }
 
-    public void clickCartButton(){
+    public void openCart(){
         cartButton.click ();
     }
-
-//    public void getInventoryItemsDetails(){
-//
-//
-//
-//    }
-
-
-
 }
