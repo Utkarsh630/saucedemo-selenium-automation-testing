@@ -41,3 +41,5 @@ test-output
 logs/
 reports/
 reports
+
+.DS_Store

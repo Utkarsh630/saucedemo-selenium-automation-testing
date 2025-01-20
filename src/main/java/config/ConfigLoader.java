@@ -22,7 +22,7 @@ public class ConfigLoader {
     }
 
     public static String getProperty(String key){
-        if(!(key.isEmpty () || key.isBlank () || key.equals (" "))){
+        if(!(key.isBlank ( ) || key.equals ( " " ))){
             String value = properties.getProperty (key);
             if(value!=null){
                 logger.debug ("Property loaded with key: {} and value: {}",key,value);
